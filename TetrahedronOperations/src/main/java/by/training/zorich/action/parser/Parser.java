@@ -1,7 +1,9 @@
 package by.training.zorich.action.parser;
 
+import by.training.zorich.action.parser.impl.ParserException;
+
 import java.util.List;
 
 public interface Parser {
-	List<Double[][]> getTetrahedronVertexes(List<String> data);
+	List<Double[][]> getTetrahedronsParams() throws ParserException;
 }
