@@ -5,63 +5,67 @@ import java.io.Serializable;
 public class Point implements Serializable {
 	private static final long serialVersionUID = -2843316508374402270L;
 
-	private double x;
-	private double y;
-	private double z;
+	private double coordinateX;
+	private double coordinateY;
+	private double coordinateZ;
 
 
 	public Point() {
 	}
 
-	public Point(double all) {
-		x = y = z = all;
+	public Point(double identicalCoordinates) {
+		coordinateX = coordinateY = coordinateZ = identicalCoordinates;
 	}
 
-	public Point(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+	public Point(double coordinateX, double coordinateY, double coordinateZ) {
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.coordinateZ = coordinateZ;
 	}
 
-	public double getX() {
-		return x;
+	public double getCoordinateX() {
+		return coordinateX;
 	}
 
-	public void setX(double x) {
-		this.x = x;
+	public void setCoordinateX(double coordinateX) {
+		this.coordinateX = coordinateX;
 	}
 
-	public double getY() {
-		return y;
+	public double getCoordinateY() {
+		return coordinateY;
 	}
 
-	public void setY(double y) {
-		this.y = y;
+	public void setCoordinateY(double coordinateY) {
+		this.coordinateY = coordinateY;
 	}
 
-	public double getZ() {
-		return z;
+	public double getCoordinateZ() {
+		return coordinateZ;
 	}
 
-	public void setZ(double z) {
-		this.z = z;
+	public void setCoordinateZ(double coordinateZ) {
+		this.coordinateZ = coordinateZ;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
+		if (this == o) {
 			return true;
-		if (o == null || getClass() != o.getClass())
+		}
+		if (o == null || getClass() != o.getClass()) {
 			return false;
+		}
 
 		Point point = (Point) o;
 
-		if (Double.compare(point.x, x) != 0)
+		if (Double.compare(point.coordinateX, coordinateX) != 0) {
 			return false;
-		if (Double.compare(point.y, y) != 0)
+		}
+		if (Double.compare(point.coordinateY, coordinateY) != 0) {
 			return false;
+		}
 
-		return Double.compare(point.z, z) == 0;
+		return Double.compare(point.coordinateZ, coordinateZ) == 0;
 	}
 
 	@Override
@@ -69,13 +73,13 @@ public class Point implements Serializable {
 		int result;
 		long temp;
 
-		temp = Double.doubleToLongBits(x);
+		temp = Double.doubleToLongBits(coordinateX);
 		result = (int) (temp ^ (temp >>> 32));
 
-		temp = Double.doubleToLongBits(y);
+		temp = Double.doubleToLongBits(coordinateY);
 		result = 31 * result + (int) (temp ^ (temp >>> 32));
 
-		temp = Double.doubleToLongBits(z);
+		temp = Double.doubleToLongBits(coordinateZ);
 		result = 31 * result + (int) (temp ^ (temp >>> 32));
 
 		return result;
@@ -83,6 +87,6 @@ public class Point implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Point{" + "x=" + x + ", y=" + y + ", z=" + z + '}';
+		return getClass().getName().toString() + "{" + "coordinateX=" + coordinateX + ", coordinateY=" + coordinateY + ", coordinateZ=" + coordinateZ + '}';
 	}
 }
