@@ -1,10 +1,8 @@
 package by.training.zorich.domain;
 
-import org.omg.PortableServer.POA;
-
 import java.io.Serializable;
 
-public class RegularTetrahedron implements Serializable {
+public class Tetrahedron implements Serializable {
 	private static final long serialVersionUID = -2188739546336276763L;
 
 	private Point vertexA;
@@ -12,10 +10,10 @@ public class RegularTetrahedron implements Serializable {
 	private Point vertexC;
 	private Point vertexD;
 
-	public RegularTetrahedron() {
+	public Tetrahedron() {
 	}
 
-	public RegularTetrahedron(Point vertexA, Point vertexB, Point vertexC, Point vertexD) {
+	public Tetrahedron(Point vertexA, Point vertexB, Point vertexC, Point vertexD) {
 		this.vertexA = vertexA;
 		this.vertexB = vertexB;
 		this.vertexC = vertexC;
@@ -63,7 +61,7 @@ public class RegularTetrahedron implements Serializable {
 			return false;
 		}
 
-		RegularTetrahedron that = (RegularTetrahedron) o;
+		Tetrahedron that = (Tetrahedron) o;
 
 		if (vertexA != null ? !vertexA.equals(that.vertexA) : that.vertexA != null) {
 			return false;

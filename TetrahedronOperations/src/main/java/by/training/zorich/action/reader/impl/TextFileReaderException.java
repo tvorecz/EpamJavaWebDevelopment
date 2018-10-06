@@ -1,23 +1,23 @@
 package by.training.zorich.action.reader.impl;
 
-public class ReaderException extends Exception {
+public class TextFileReaderException extends Exception {
 	private static final long serialVersionUID = -7037750780485478604L;
 
 	private final static String ERROR = "Unknown error";
 
-	public ReaderException() {
+	public TextFileReaderException() {
 		super(ERROR);
 	}
 
-	public ReaderException(String message) {
+	public TextFileReaderException(String message) {
 		super(message);
 	}
 
-	public ReaderException(String message, Exception exeption) {
+	public TextFileReaderException(String message, Exception exeption) {
 		super(message, exeption);
 	}
 
-	public ReaderException(Exception exeption) {
+	public TextFileReaderException(Exception exeption) {
 		super(exeption);
 	}
 }

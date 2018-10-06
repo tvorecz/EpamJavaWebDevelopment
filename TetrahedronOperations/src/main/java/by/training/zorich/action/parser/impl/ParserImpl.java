@@ -1,6 +1,8 @@
 package by.training.zorich.action.parser.impl;
 
 import by.training.zorich.action.parser.Parser;
+import by.training.zorich.action.validator.VertexesTetrahedronValidator;
+import by.training.zorich.action.validator.impl.VertexesTetrahedronValidatorImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +13,11 @@ public class ParserImpl implements Parser {
 	private final static String VERTEXES_SPLITER = "&";
 	private final static String POINTS_SPLITER = "\\s+";
 	private List<String> tetrahedronsParams;
+	private VertexesTetrahedronValidator vertexesTetrahedronValidator;
 
 	public ParserImpl(List<String> tetrahedronsParams) {
 		this.tetrahedronsParams = tetrahedronsParams;
+		vertexesTetrahedronValidator = new VertexesTetrahedronValidatorImpl();
 	}
 
 	@Override
@@ -21,40 +25,38 @@ public class ParserImpl implements Parser {
 		List<Double[][]> result = new ArrayList<Double[][]>();
 
 		for (String tetrahedronData: tetrahedronsParams) {
-			String[] vertexes = tetrahedronData.split(VERTEXES_SPLITER);
+			Double[][] vertexesTetrahedron = extractTetrahedronVertexes(tetrahedronData);
 
-			if(vertexes.length != 4) {
-				throw new ParserException(String.format(VERTEX_ERROR, tetrahedronData));
+			if (vertexesTetrahedronValidator.isValid(vertexesTetrahedron)) {
+				result.add(vertexesTetrahedron);
 			}
-
-			Double[][] params = new Double[4][];
-
-			int i = 0;
-			for (String vertex:	vertexes) {
-				String[] points = vertex.split(POINTS_SPLITER);
-
-				if(points.length != 3) {
-					throw new ParserException(String.format(POINT_ERROR, vertex, tetrahedronData));
-				}
-
-				params[i] = new Double[3];
-				int j = 0;
-				for (String coordinate:
-					 points) {
-					params[i][j] = Double.parseDouble(coordinate);
-				}
-			}
-
-			result.add(params);
 		}
 
 		return result;
 	}
-}
 
-//TODO
-//извлечь из строки данные о вершинах
-//распарсить вершины в массив чисел-вершин
-//провалидировать вершины
-//добавить в массив
+	private Double[][] extractTetrahedronVertexes(String tetrahedronData) {
+		String[] vertexes = tetrahedronData.split(VERTEXES_SPLITER);
+
+		Double[][] vetrexesCoordinates = new Double[4][3];
+
+		for (int i = 0; i < vetrexesCoordinates.length; i++) {
+			vetrexesCoordinates[i] = extactVertexCoordinates(vertexes[i]);
+		}
+
+		return  vetrexesCoordinates;
+	}
+
+	private Double[] extactVertexCoordinates(String vetrexData) {
+		String[] points = vetrexData.split(POINTS_SPLITER);
+
+		Double[] coordinates = new Double[3];
+
+		for (int i = 0; i < coordinates.length; i++) {
+			coordinates[i] = Double.parseDouble(points[i]);
+		}
+
+		return coordinates;
+	}
+}
 

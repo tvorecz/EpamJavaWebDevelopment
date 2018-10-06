@@ -18,19 +18,4 @@ public class StringTetrahedronValidatorImpl implements StringTetrahedronValidato
 		Matcher matcher = pattern.matcher(data);
 		return matcher.matches();
 	}
-
-	/*@Override
-	public List<String> getCorrestData(List<String> lines) {
-		List<String> result = new ArrayList<String>();
-		for (String line:
-			 lines) {
-			if(isValidData(line))
-				result.add(line);
-		}
-
-		if(result.isEmpty())
-			return null;
-		else
-			return result;
-	}*/
 }

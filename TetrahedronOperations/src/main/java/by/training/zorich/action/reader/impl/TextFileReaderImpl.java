@@ -1,6 +1,6 @@
 package by.training.zorich.action.reader.impl;
 
-import by.training.zorich.action.reader.Reader;
+import by.training.zorich.action.reader.TextFileReader;
 import by.training.zorich.action.validator.StringTetrahedronValidator;
 import by.training.zorich.action.validator.impl.StringTetrahedronValidatorImpl;
 
@@ -10,20 +10,20 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
-public class ReaderImpl implements Reader {
+public class TextFileReaderImpl implements TextFileReader {
 	private final static String NOT_READED = "Reading file is failed.";
 
 	private String uri;
 	private StringTetrahedronValidator stringTetrahedronValidator;
 
 
-	public ReaderImpl(String uri) {
+	public TextFileReaderImpl(String uri) {
 		this.uri = uri;
 		stringTetrahedronValidator = new StringTetrahedronValidatorImpl();
 	}
 
 	@Override
-	public List<String> getValidData() throws ReaderException {
+	public List<String> getValidData() throws TextFileReaderException {
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(uri));
 
@@ -38,7 +38,7 @@ public class ReaderImpl implements Reader {
 
 			return lines;
 		} catch (IOException ex) {
-			throw new ReaderException(NOT_READED, ex);
+			throw new TextFileReaderException(NOT_READED, ex);
 		}
 	}
 }

@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>by.training.zorich</groupId>
-    <artifactId>regularTetrahedron-operations</artifactId>
+    <artifactId>tetrahedron-operations</artifactId>
     <version>1.0.0</version>
 
-    <name>regularTetrahedron-operations</name>
+    <name>tetrahedron-operations</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
