@@ -2,7 +2,7 @@ package by.training.zorich.domain;
 
 import java.io.Serializable;
 
-public class Tetrahedron implements Serializable {
+public class Tetrahedron implements Serializable, Polyhedron {
 	private static final long serialVersionUID = -2188739546336276763L;
 
 	private Point vertexA;
