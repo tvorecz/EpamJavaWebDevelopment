@@ -2,20 +2,17 @@ package by.training.zorich.domain;
 
 import java.io.Serializable;
 
-public class CoordinatePlane implements Serializable {
-	private static final long serialVersionUID = -7122451533916867426L;
-
+public class TetrahedronEdge implements Serializable {
+	private static final long serialVersionUID = -1110839590121075169L;
 	private Point pointA;
 	private Point pointB;
-	private Point pointC;
 
-	public CoordinatePlane() {
+	public TetrahedronEdge() {
 	}
 
-	public CoordinatePlane(Point pointA, Point pointB, Point pointC) {
+	public TetrahedronEdge(Point pointA, Point pointB) {
 		this.pointA = pointA;
 		this.pointB = pointB;
-		this.pointC = pointC;
 	}
 
 	public Point getPointA() {
@@ -34,14 +31,6 @@ public class CoordinatePlane implements Serializable {
 		this.pointB = pointB;
 	}
 
-	public Point getPointC() {
-		return pointC;
-	}
-
-	public void setPointC(Point pointC) {
-		this.pointC = pointC;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -51,24 +40,23 @@ public class CoordinatePlane implements Serializable {
 			return false;
 		}
 
-		CoordinatePlane that = (CoordinatePlane) o;
+		TetrahedronEdge that = (TetrahedronEdge) o;
 
 		if (pointA != null ? !pointA.equals(that.pointA) : that.pointA != null) {
 			return false;
 		}
-		if (pointB != null ? !pointB.equals(that.pointB) : that.pointB != null) {
-			return false;
-		}
-		return pointC != null ? pointC.equals(that.pointC) : that.pointC == null;
+		return pointB != null ? pointB.equals(that.pointB) : that.pointB == null;
 	}
 
 	@Override
 	public int hashCode() {
 		int result = pointA != null ? pointA.hashCode() : 0;
-
 		result = 31 * result + (pointB != null ? pointB.hashCode() : 0);
-		result = 31 * result + (pointC != null ? pointC.hashCode() : 0);
-
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + "{" + "pointA=" + pointA + ", pointB=" + pointB + '}';
 	}
 }

@@ -1,9 +1,15 @@
 package by.training.zorich.action.executor.impl;
 
 import by.training.zorich.action.executor.TetrahedronExecutor;
-import by.training.zorich.domain.CoordinatePlane;
+import by.training.zorich.domain.CuttingCoordinatePlane;
 import by.training.zorich.domain.Point;
 import by.training.zorich.domain.Tetrahedron;
+import by.training.zorich.domain.TetrahedronEdge;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 	@Override
@@ -28,22 +34,57 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 	}
 
 	@Override
-	public double ratioDimensions(Tetrahedron tetrahedron, CoordinatePlane coordinatePlane) {
-		return 0;
+	public double[] ratioDimensions(Tetrahedron tetrahedron, CuttingCoordinatePlane cuttingCoordinatePlane) {
+		//создать грани тетраэдра
+		Map<Edge, TetrahedronEdge> edges = getTetrahedronEdges(tetrahedron);
+
+		//для удобства перебора создает список точек пересечения
+		List<Point> pointsOfPlane = createPointsOfPlate(cuttingCoordinatePlane);
+
+		//определить, на каких гранях находятся пересечения с плоскостями
+		Map<Point, TetrahedronEdge> intersectionsAndEdges = getIntersectionsAndEdges(edges, pointsOfPlane);
+
+		//определить общую вершину образованного секущей плоскостью тетраэдра
+		Point vertex = getVertexOfNewTetrahedron(intersectionsAndEdges);
+
+		Tetrahedron newTetrahedron = new Tetrahedron(cuttingCoordinatePlane.getIntersectionPointA(), cuttingCoordinatePlane.getIntersectionPointB(), cuttingCoordinatePlane.getIntersectionPointC(), vertex);
+
+		double newTetrahedronVolume = volume(newTetrahedron);
+		double tetrahedronVolume = volume(tetrahedron);
+		double polyhedronVolume = tetrahedronVolume - newTetrahedronVolume;
+
+		double[] ratio = new double[2];
+		ratio[0] = newTetrahedronVolume / polyhedronVolume;
+		ratio[1]= polyhedronVolume / newTetrahedronVolume;
+
+		return ratio;
 	}
 
 	@Override
 	public boolean isRegularTetrahedron(Tetrahedron tetrahedron) {
-		return false;
+		List<TetrahedronEdge> tetrahedronEdges = getTetrahedronEdgesAsList(tetrahedron);
+
+		Double[] vectorCoodinates = calculateVectorCoodinates(tetrahedronEdges.get(0).getPointA(), tetrahedronEdges.get(0).getPointB());
+
+		double firstEdge = calculateScalarVector(vectorCoodinates);
+
+		for (int i = 1; i < tetrahedronEdges.size(); i++) {
+			vectorCoodinates = calculateVectorCoodinates(tetrahedronEdges.get(0).getPointA(), tetrahedronEdges.get(0).getPointB());
+
+			double otherEdge = calculateScalarVector(vectorCoodinates);
+
+			if(firstEdge != otherEdge)
+				return false;
+		}
+
+		return true;
 	}
 
 	@Override
 	public boolean isBaseOnCoordinatePlane(Tetrahedron tetrahedron) {
-		for (int i = 0; i < 3; i++) {
-			if(tetrahedron.getVertexA().)
-		}
+		Double[][] matrixCoordinates = createMatrixCoordinates(tetrahedron.getVertexA(), tetrahedron.getVertexB(), tetrahedron.getVertexC(), tetrahedron.getVertexD());
 
-		return false;
+		return hasThreePointsZero(matrixCoordinates);
 	}
 
 	/*для нахождения объема*/
@@ -100,6 +141,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return vectorProduct;
 	}
 
+	//TODO: это модуль вектора (длина его отрезка), а не скалярное произведение
 	private Double calculateScalarVector(Double[] vector) {
 		Double scalarVector = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0) + Math.pow(vector[2], 2.0));
 		return scalarVector;
@@ -107,19 +149,23 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 
 	/*для проверки основания фигуры*/
 
-	private boolean isThreePointsHasZero(Double[][] matrixCoodninates) {
+	private boolean hasThreePointsZero(Double[][] matrixCoodninates) {
 		for (int i = 0; i < matrixCoodninates[0].length; i++) {
-			if(matrixCoodninates[0][i] == 0) {
-				boolean checkStop = false;
-				int countZero = 1;
-				int countCheck = 0;
+			boolean checkStop = false;
+			int countZero = 0;
 
-				for (int j = 1; j < matrixCoodninates.length; j++) {
-					if()
-
+			for (int j = 0; j < matrixCoodninates.length; j++) {
+				if (matrixCoodninates[j][i] == 0) {
+					countZero++;
 				}
 			}
+
+			if (countZero == 3) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	private Double[][] createMatrixCoordinates(Point... points) {
@@ -142,5 +188,113 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return coordinates;
 	}
 
+	/*Для определения объема фигур, получающихся при рассечении тетраэдра*/
 
+	private boolean isPointOnTheEdge(Point point, TetrahedronEdge tetrahedronEdge) {
+		boolean onEdge = false;
+
+		double firstResult = calculateEquationOfLine(point.getCoordinateX(), tetrahedronEdge.getPointA().getCoordinateX(), tetrahedronEdge.getPointB().getCoordinateX());
+		double secondResult = calculateEquationOfLine(point.getCoordinateY(), tetrahedronEdge.getPointA().getCoordinateY(), tetrahedronEdge.getPointB().getCoordinateY());
+		double thirdResult = calculateEquationOfLine(point.getCoordinateZ(), tetrahedronEdge.getPointA().getCoordinateZ(), tetrahedronEdge.getPointB().getCoordinateZ());
+
+		onEdge = ((firstResult == secondResult) && (firstResult == thirdResult));
+
+		return onEdge;
+	}
+
+	//	уравнение прямой
+	private double calculateEquationOfLine(double checkCoordinate, double firstCoordinate, double secondCoordinate) {
+		//		TODO: проверить на ноль в делителе
+		double result = (checkCoordinate - firstCoordinate) / (secondCoordinate - firstCoordinate);
+
+		return result;
+	}
+
+	private Map<Edge, TetrahedronEdge> getTetrahedronEdges(Tetrahedron tetrahedron) {
+		Map<Edge, TetrahedronEdge> edges = new HashMap<Edge, TetrahedronEdge>();
+
+		edges.put(Edge.AB, new TetrahedronEdge(tetrahedron.getVertexA(), tetrahedron.getVertexB()));
+		edges.put(Edge.AC, new TetrahedronEdge(tetrahedron.getVertexA(), tetrahedron.getVertexC()));
+		edges.put(Edge.AD, new TetrahedronEdge(tetrahedron.getVertexA(), tetrahedron.getVertexD()));
+		edges.put(Edge.BC, new TetrahedronEdge(tetrahedron.getVertexB(), tetrahedron.getVertexC()));
+		edges.put(Edge.BD, new TetrahedronEdge(tetrahedron.getVertexB(), tetrahedron.getVertexD()));
+		edges.put(Edge.CD, new TetrahedronEdge(tetrahedron.getVertexC(), tetrahedron.getVertexD()));
+
+		return edges;
+	}
+
+	private List<TetrahedronEdge> getTetrahedronEdgesAsList(Tetrahedron tetrahedron) {
+		List<TetrahedronEdge> edges = new ArrayList<TetrahedronEdge>();
+
+		edges.add(new TetrahedronEdge(tetrahedron.getVertexA(), tetrahedron.getVertexB()));
+		edges.add(new TetrahedronEdge(tetrahedron.getVertexA(), tetrahedron.getVertexC()));
+		edges.add(new TetrahedronEdge(tetrahedron.getVertexA(), tetrahedron.getVertexD()));
+		edges.add(new TetrahedronEdge(tetrahedron.getVertexB(), tetrahedron.getVertexC()));
+		edges.add(new TetrahedronEdge(tetrahedron.getVertexB(), tetrahedron.getVertexD()));
+		edges.add(new TetrahedronEdge(tetrahedron.getVertexC(), tetrahedron.getVertexD()));
+
+		return edges;
+	}
+
+	//найти на каких гранях лежат точки пересекающей плоскости
+	private Map<Point, TetrahedronEdge> getIntersectionsAndEdges(Map<Edge, TetrahedronEdge> edges, List<Point> pointsOfPlane) {
+		Map<Point, TetrahedronEdge> intersectionsAndEdges = new HashMap<Point, TetrahedronEdge>();
+
+		for (Point point : pointsOfPlane) {
+			for (Edge edge : Edge.values()) {
+				if (isPointOnTheEdge(point, intersectionsAndEdges.get(edge))) {
+					intersectionsAndEdges.put(point, intersectionsAndEdges.get(edge));
+				}
+			}
+		}
+
+		return intersectionsAndEdges;
+	}
+
+	private List<Point> createPointsOfPlate(CuttingCoordinatePlane cuttingCoordinatePlane) {
+		List<Point> pointsOfPlane = new ArrayList<Point>();
+
+		pointsOfPlane.add(cuttingCoordinatePlane.getIntersectionPointA());
+		pointsOfPlane.add(cuttingCoordinatePlane.getIntersectionPointB());
+		pointsOfPlane.add(cuttingCoordinatePlane.getIntersectionPointC());
+
+		return pointsOfPlane;
+	}
+
+	//находит вершину тетраэдра, образованного пересекающей плоскостью
+	private Point getVertexOfNewTetrahedron(Map<Point, TetrahedronEdge> intersectionsAndEdges) {
+		List<Point> points = createListOfPoints(intersectionsAndEdges);
+
+		Point vertex = null;
+
+		for (int i = 0; i < points.size() - 1; i++) {
+			int count = 0;
+			vertex = points.get(0);
+
+			for (int j = i + 1; j < points.size(); j++) {
+				Point nextVertex = points.get(j);
+
+				if(vertex.equals(nextVertex)) {
+					count++;
+				}
+			}
+
+			if(count == 2) {
+				break;
+			}
+		}
+
+		return vertex;
+	}
+
+	private List<Point> createListOfPoints(Map<Point, TetrahedronEdge> intersectionsAndEdges) {
+		List<Point> points = new ArrayList<Point>();
+
+		for (TetrahedronEdge tetrahedronEdge : intersectionsAndEdges.values()) {
+			points.add(tetrahedronEdge.getPointA());
+			points.add(tetrahedronEdge.getPointB());
+		}
+
+		return points;
+	}
 }
