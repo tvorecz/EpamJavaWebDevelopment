@@ -11,7 +11,7 @@ public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronVali
 		boolean result = true;
 
 		for (int i = 0; i < 3; i++) {
-			for (int j = i; j < 4; j++) {
+			for (int j = i + 1; j < 4; j++) {
 				if (isEqualPoints(tetrahedronVertexesCoordinates[i], tetrahedronVertexesCoordinates[j])) {
 					return false;
 				}

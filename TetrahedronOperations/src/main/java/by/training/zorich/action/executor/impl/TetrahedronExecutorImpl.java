@@ -27,8 +27,10 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 	@Override
 	public double calculateVolume(Tetrahedron tetrahedron) {
 		double[][] vectorsMatrix = calculateVectorsMatrix(tetrahedron);
+
 		double scalarTripleProduct = calculateScalarTripleProduct(vectorsMatrix);
-		double volumeTetrahedron = 1 / 6 * Math.abs(scalarTripleProduct);
+
+		double volumeTetrahedron = (Math.abs(scalarTripleProduct)) * (1.0 / 6.0);
 
 		return volumeTetrahedron;
 	}
