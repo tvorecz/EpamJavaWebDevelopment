@@ -13,6 +13,12 @@ public class CuttingCoordinatePlane implements Serializable {
 	public CuttingCoordinatePlane() {
 	}
 
+	public CuttingCoordinatePlane(double[][] intersectionPoints) {
+		intersectionPointA = new Point(intersectionPoints[0]);
+		intersectionPointB = new Point(intersectionPoints[1]);
+		intersectionPointC = new Point(intersectionPoints[2]);
+	}
+
 	public CuttingCoordinatePlane(Point intersectionPointA, Point intersectionPointB, Point intersectionPointC) {
 		this.intersectionPointA = intersectionPointA;
 		this.intersectionPointB = intersectionPointB;

@@ -7,7 +7,7 @@ public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronVali
 	//	метод проверяет, нет ли одинаковых точек в наборе
 	//	если хотя бы две точки совпадают, то тетраэдр построить нельзя
 	@Override
-	public boolean isValid(Double[][] tetrahedronVertexesCoordinates) {
+	public boolean isValid(double[][] tetrahedronVertexesCoordinates) {
 		boolean result = true;
 
 		for (int i = 0; i < 3; i++) {
@@ -22,12 +22,17 @@ public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronVali
 	}
 
 	//	проверка двух точек на совпадение координат
-	private boolean isEqualPoints(Double[] firstPoint, Double[] secondPoint) {
+	private boolean isEqualPoints(double[] firstPoint, double[] secondPoint) {
+		int countOfMatches = 0;
+
 		for (int i = 0; i < firstPoint.length; i++) {
-			if (firstPoint[i].equals(secondPoint[i])) {
-				return true;
+			if (firstPoint[i] == secondPoint[i]) {
+				countOfMatches++;
 			}
 		}
+
+		if(countOfMatches == 3)
+			return true;
 
 		return false;
 	}

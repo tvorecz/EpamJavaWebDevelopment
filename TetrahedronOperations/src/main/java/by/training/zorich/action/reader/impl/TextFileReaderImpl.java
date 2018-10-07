@@ -3,6 +3,8 @@ package by.training.zorich.action.reader.impl;
 import by.training.zorich.action.reader.TextFileReader;
 import by.training.zorich.action.validator.StringTetrahedronValidator;
 import by.training.zorich.action.validator.impl.StringTetrahedronValidatorImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,39 +16,38 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TextFileReaderImpl implements TextFileReader {
-	private final static String NOT_READED = "Reading file is failed.";
-
-	private String uri;
 	private StringTetrahedronValidator stringTetrahedronValidator;
 
+	private final static Logger readerlogger = LogManager.getLogger(TextFileReaderImpl.class);
 
-	public TextFileReaderImpl(String uri) {
-		this.uri = uri;
+
+	public TextFileReaderImpl() {
 		stringTetrahedronValidator = new StringTetrahedronValidatorImpl();
 	}
 
 	@Override
-	public List<String> getValidData() throws TextFileReaderException {
-		List<String> lines = Collections.emptyList();
+	public List<String> getValidData(String uri) throws TextFileReaderException {
+		List<String> linesWithTetrahedronCoordinates = Collections.emptyList();
 
 		try (Stream<String> stream = Files.lines(Paths.get(uri))) {
-			//List<String> lines = Files.readAllLines(Paths.get(uri));
+			//List<String> linesWithTetrahedronCoordinates = Files.readAllLines(Paths.get(uri));
 
-			lines = stream.collect(Collectors.toList());
+			linesWithTetrahedronCoordinates = stream.collect(Collectors.toList());
+
+			Iterator<String> linesIterator = linesWithTetrahedronCoordinates.iterator();
+
+			while (linesIterator.hasNext()) {
+				String currentLine = linesIterator.next();
+				if (!stringTetrahedronValidator.isValid(currentLine)) {
+					linesIterator.remove();
+				}
+			}
 
 		} catch (IOException ex) {
-			throw new TextFileReaderException(NOT_READED, ex);
+			readerlogger.error(ex.getStackTrace().toString());
+			throw new TextFileReaderException("Reading file is failed.", ex);
 		}
 
-		Iterator<String> linesIterator = lines.iterator();
-
-		while (linesIterator.hasNext()) {
-			String currentLine = linesIterator.next();
-			if (!stringTetrahedronValidator.isValid(currentLine)) {
-				linesIterator.remove();
-			}
-		}
-
-		return lines;
+		return linesWithTetrahedronCoordinates;
 	}
 }

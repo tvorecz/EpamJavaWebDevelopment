@@ -4,9 +4,9 @@ import by.training.zorich.domain.CuttingCoordinatePlane;
 import by.training.zorich.domain.Tetrahedron;
 
 public interface TetrahedronExecutor {
-	double totalSquare(Tetrahedron tetrahedron);
-	double volume(Tetrahedron tetrahedron);
-	double[] ratioDimensions(Tetrahedron tetrahedron, CuttingCoordinatePlane cuttingCoordinatePlane);
+	double calculateTotalSquare(Tetrahedron tetrahedron);
+	double calculateVolume(Tetrahedron tetrahedron);
+	double[] calculateRatiosOfVolumes(Tetrahedron tetrahedron, CuttingCoordinatePlane cuttingCoordinatePlane);
 	boolean isRegularTetrahedron(Tetrahedron tetrahedron);
 	boolean isBaseOnCoordinatePlane(Tetrahedron tetrahedron);
 }

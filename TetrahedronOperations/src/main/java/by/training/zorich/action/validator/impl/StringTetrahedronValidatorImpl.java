@@ -14,8 +14,8 @@ public class StringTetrahedronValidatorImpl implements StringTetrahedronValidato
 		this.pattern = Pattern.compile(PATTERN);
 	}
 
-	public boolean isValid(String data) {
-		Matcher matcher = pattern.matcher(data);
+	public boolean isValid(String tetrahedronVertexesCoordinates) {
+		Matcher matcher = pattern.matcher(tetrahedronVertexesCoordinates);
 		return matcher.matches();
 	}
 }

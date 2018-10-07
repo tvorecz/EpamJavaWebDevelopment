@@ -1,6 +1,7 @@
 package by.training.zorich.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Tetrahedron implements Serializable, Polyhedron {
 	private static final long serialVersionUID = -2188739546336276763L;
@@ -11,6 +12,13 @@ public class Tetrahedron implements Serializable, Polyhedron {
 	private Point vertexD;
 
 	public Tetrahedron() {
+	}
+
+	public Tetrahedron(double[][] vertexes) {
+		vertexA = new Point(vertexes[0]);
+		vertexB = new Point(vertexes[1]);
+		vertexC = new Point(vertexes[2]);
+		vertexD = new Point(vertexes[3]);
 	}
 
 	public Tetrahedron(Point vertexA, Point vertexB, Point vertexC, Point vertexD) {
@@ -86,6 +94,6 @@ public class Tetrahedron implements Serializable, Polyhedron {
 
 	@Override
 	public String toString() {
-		return getClass().getName().toString() + "{" + "vertexA=" + vertexA + ", vertexB=" + vertexB + ", vertexC=" + vertexC + ", vertexD=" + vertexD + '}';
+		return getClass().getName() + "{" + "vertexA=" + vertexA + ", vertexB=" + vertexB + ", vertexC=" + vertexC + ", vertexD=" + vertexD + '}';
 	}
 }

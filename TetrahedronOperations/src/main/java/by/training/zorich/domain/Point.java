@@ -9,12 +9,13 @@ public class Point implements Serializable {
 	private double coordinateY;
 	private double coordinateZ;
 
-
 	public Point() {
 	}
 
-	public Point(double identicalCoordinates) {
-		coordinateX = coordinateY = coordinateZ = identicalCoordinates;
+	public Point(double[] coordinates) {
+		coordinateX = coordinates[0];
+		coordinateY = coordinates[1];
+		coordinateZ = coordinates[2];
 	}
 
 	public Point(double coordinateX, double coordinateY, double coordinateZ) {
@@ -87,6 +88,6 @@ public class Point implements Serializable {
 
 	@Override
 	public String toString() {
-		return getClass().getName().toString() + "{" + "coordinateX=" + coordinateX + ", coordinateY=" + coordinateY + ", coordinateZ=" + coordinateZ + '}';
+		return getClass().getName() + "{" + "coordinateX=" + coordinateX + ", coordinateY=" + coordinateY + ", coordinateZ=" + coordinateZ + '}';
 	}
 }

@@ -10,6 +10,11 @@ public class TetrahedronEdge implements Serializable {
 	public TetrahedronEdge() {
 	}
 
+	public TetrahedronEdge(double[][] points) {
+		pointA = new Point(points[0]);
+		pointB = new Point(points[1]);
+	}
+
 	public TetrahedronEdge(Point pointA, Point pointB) {
 		this.pointA = pointA;
 		this.pointB = pointB;
