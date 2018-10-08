@@ -31,8 +31,9 @@ public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronVali
 			}
 		}
 
-		if(countOfMatches == 3)
+		if (countOfMatches == 3) {
 			return true;
+		}
 
 		return false;
 	}

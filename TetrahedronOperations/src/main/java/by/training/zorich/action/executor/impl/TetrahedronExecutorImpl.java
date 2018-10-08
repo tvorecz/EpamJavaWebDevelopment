@@ -12,12 +12,14 @@ import java.util.List;
 import java.util.Map;
 
 public class TetrahedronExecutorImpl implements TetrahedronExecutor {
+	private static final double EPS = 10e-5;
+
 	@Override
 	public double calculateTotalSquare(Tetrahedron tetrahedron) {
-		double firstFace = calculateTriangleSquare(tetrahedron.getVertexD(), tetrahedron.getVertexA(), tetrahedron.getVertexB());
-		double secondFace = calculateTriangleSquare(tetrahedron.getVertexD(), tetrahedron.getVertexA(), tetrahedron.getVertexC());
-		double thirdFace = calculateTriangleSquare(tetrahedron.getVertexD(), tetrahedron.getVertexB(), tetrahedron.getVertexC());
-		double fourthFace = calculateTriangleSquare(tetrahedron.getVertexA(), tetrahedron.getVertexB(), tetrahedron.getVertexC());
+		double firstFace = calculateTriangleSquare(tetrahedron.getVertexA(), tetrahedron.getVertexB(), tetrahedron.getVertexC());
+		double secondFace = calculateTriangleSquare(tetrahedron.getVertexA(), tetrahedron.getVertexB(), tetrahedron.getVertexD());
+		double thirdFace = calculateTriangleSquare(tetrahedron.getVertexA(), tetrahedron.getVertexC(), tetrahedron.getVertexD());
+		double fourthFace = calculateTriangleSquare(tetrahedron.getVertexB(), tetrahedron.getVertexC(), tetrahedron.getVertexD());
 
 		double square = firstFace + secondFace + thirdFace + fourthFace;
 
@@ -57,7 +59,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 
 		double[] ratio = new double[2];
 		ratio[0] = newTetrahedronVolume / polyhedronVolume;
-		ratio[1]= polyhedronVolume / newTetrahedronVolume;
+		ratio[1] = polyhedronVolume / newTetrahedronVolume;
 
 		return ratio;
 	}
@@ -71,13 +73,17 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		double firstEdge = calculateModulusOfVector(vectorCoodinates);
 
 		for (int i = 1; i < tetrahedronEdges.size(); i++) {
-			vectorCoodinates = calculateVectorCoodinates(tetrahedronEdges.get(0).getPointA(), tetrahedronEdges.get(0).getPointB());
+			vectorCoodinates = calculateVectorCoodinates(tetrahedronEdges.get(i).getPointA(), tetrahedronEdges.get(i).getPointB());
 
 			double otherEdge = calculateModulusOfVector(vectorCoodinates);
 
 			//если длина двух граней не совпадает
-			if(firstEdge != otherEdge)
+			//перед сравнением округляем до целого числа
+			if ((Math.abs(firstEdge - otherEdge)) > EPS) {
 				return false;
+			}
+
+			firstEdge = otherEdge;
 		}
 
 		return true;
@@ -121,8 +127,8 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 
 	//находит модуль вектора (длина его отрезка)
 	private double calculateModulusOfVector(double[] vector) {
-		double scalarVector = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0) + Math.pow(vector[2], 2.0));
-		return scalarVector;
+		double modulusOfVector = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0) + Math.pow(vector[2], 2.0));
+		return modulusOfVector;
 	}
 
 	/*для нахождения объема*/
@@ -208,7 +214,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		double thirdResult = calculateEquationOfLine(point.getCoordinateZ(), tetrahedronEdge.getPointA().getCoordinateZ(), tetrahedronEdge.getPointB().getCoordinateZ());
 
 		//исключаем ноль в делитете
-		if(count == 1) {
+		if (count == 1) {
 			return equationsOfLineWithZero(new double[]{firstResult, secondResult, thirdResult}, vector);
 		} else if (count == 2) {
 			return equationsOfLineWithTwoZero(new double[]{firstResult, secondResult, thirdResult}, vector);
@@ -222,8 +228,9 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		int count = 0;
 
 		for (int i = 0; i < vector.length; i++) {
-			if(vector[i] == 0.0)
+			if (vector[i] == 0.0) {
 				count++;
+			}
 		}
 
 		return count;
@@ -242,10 +249,11 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 	private double calculateEquationOfLine(double checkCoordinate, double firstCoordinate, double secondCoordinate) {
 		double result = 0;
 
-		if((secondCoordinate - firstCoordinate) != 0)
+		if ((secondCoordinate - firstCoordinate) != 0) {
 			result = (checkCoordinate - firstCoordinate) / (secondCoordinate - firstCoordinate);
-		else
+		} else {
 			result = checkCoordinate - firstCoordinate;
+		}
 
 		return result;
 	}
@@ -258,15 +266,15 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		boolean secondEquality = false;
 
 		for (int i = 0; i < vector.length; i++) {
-			if(vector[i] == 0.0) {
+			if (vector[i] == 0.0) {
 				secondEquality = resultsEquationOfLine[i] == 0.0;
 			}
 		}
 
 		for (int i = 0; i < vector.length; i++) {
-			if(vector[i] != 0.0) {
+			if (vector[i] != 0.0) {
 				for (int j = i + 1; j < vector.length; j++) {
-					if(vector[j] != 0.0) {
+					if (vector[j] != 0.0) {
 						firstEquality = resultsEquationOfLine[i] == resultsEquationOfLine[j];
 
 						break;
@@ -290,10 +298,10 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		boolean secondEquality = false;
 
 		for (int i = 0; i < vector.length; i++) {
-			if(vector[i] == 0.0) {
+			if (vector[i] == 0.0) {
 				secondEquality = resultsEquationOfLine[i] == 0.0;
 				for (int j = i + 1; j < vector.length; j++) {
-					if(vector[j] == 0.0) {
+					if (vector[j] == 0.0) {
 						firstEquality = resultsEquationOfLine[j] == 0.0;
 
 						break;
@@ -342,7 +350,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		for (Point point : intersectionPoints) {
 			for (Edge edge : Edge.values()) {
 				if (isPointOnTheEdge(point, edges.get(edge))) {
-					intersectionsAndEdges.put(point, intersectionsAndEdges.get(edge));
+					intersectionsAndEdges.put(point, edges.get(edge));
 				}
 			}
 		}
@@ -373,12 +381,12 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 			for (int j = i + 1; j < points.size(); j++) {
 				Point nextVertex = points.get(j);
 
-				if(vertex.equals(nextVertex)) {
+				if (vertex.equals(nextVertex)) {
 					count++;
 				}
 			}
 
-			if(count == 2) {
+			if (count == 2) {
 				break;
 			}
 		}

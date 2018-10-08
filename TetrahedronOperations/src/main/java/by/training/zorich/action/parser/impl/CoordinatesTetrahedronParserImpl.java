@@ -21,7 +21,7 @@ public class CoordinatesTetrahedronParserImpl implements CoordinatesPolyhedronPa
 	}
 
 	@Override
-	public List<double[][]> getTetrahedronsCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption{
+	public List<double[][]> parseTetrahedronsVertexesCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption{
 		List<double[][]> tetrahedronsCoordinates = new ArrayList<>();
 
 		for (String tetrahedronData: linesWithTetrahedronCoordinates) {

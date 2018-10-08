@@ -6,5 +6,5 @@ import by.training.zorich.domain.Polyhedron;
 import java.util.List;
 
 public interface CoordinatesPolyhedronParser {
-	List<double[][]> getTetrahedronsCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption;
+	List<double[][]> parseTetrahedronsVertexesCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption;
 }

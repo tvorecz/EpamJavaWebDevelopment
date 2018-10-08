@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class StringTetrahedronValidatorImpl implements StringTetrahedronValidator {
 	private static final String PATTERN = "(((-?\\d+(\\.\\d*)?\\s+){2}(-?\\d+(\\.\\d*)?&+)){3}((-?\\d+(\\.\\d*)?\\s+){2}(-?\\d+(\\.\\d*)?$)))";
-//	private static final Pattern pattern = Pattern.compile(PATTERN);
+	//	private static final Pattern pattern = Pattern.compile(PATTERN);
 	private Pattern pattern;
 
 	public StringTetrahedronValidatorImpl() {

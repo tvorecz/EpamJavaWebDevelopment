@@ -78,4 +78,9 @@ public class CuttingCoordinatePlane implements Serializable {
 
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + "{" + "intersectionPointA=" + intersectionPointA + ", intersectionPointB=" + intersectionPointB + ", intersectionPointC=" + intersectionPointC + '}';
+	}
 }

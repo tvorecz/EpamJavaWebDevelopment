@@ -9,7 +9,7 @@ public class VertexesTetrahedronValidatorTest {
 	public void testVertexesTetrahedronValidator() {
 		VertexesTetrahedronValidatorImpl vertexesTetrahedronValidator = new VertexesTetrahedronValidatorImpl();
 
-		double[][] vertexes = {{0, 0, 0}, {1, 2, 3} , {0, 0, 0}, {-10, 11, 4}};
+		double[][] vertexes = {{0, 0, 0}, {1, 2, 3}, {0, 0, 0}, {-10, 11, 4}};
 
 		boolean actual = vertexesTetrahedronValidator.isValid(vertexes);
 

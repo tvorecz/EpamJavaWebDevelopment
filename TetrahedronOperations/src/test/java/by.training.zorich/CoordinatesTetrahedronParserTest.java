@@ -10,7 +10,8 @@ import java.util.List;
 
 public class CoordinatesTetrahedronParserTest {
 	@Test
-	public void testCoordinatesTetrahedronParser() throws CoordinatesTetrahedronParserExсeption{
+	public void testCoordinatesTetrahedronParser() throws CoordinatesTetrahedronParserExсeption {
+		//TODO
 		CoordinatesTetrahedronParserImpl coordinatesTetrahedronParser = new CoordinatesTetrahedronParserImpl();
 
 		List<String> forTest = new ArrayList<>();
@@ -25,7 +26,7 @@ public class CoordinatesTetrahedronParserTest {
 		double[][] secondDoubleForTest = {{1.0, 3.0, 6.0}, {2.0, 2.0, 1.0}, {-1.0, 0.0, 1.0}, {-4.0, 6.0, -3.0}};
 		expected.add(secondDoubleForTest);
 
-		List<double[][]> actual = coordinatesTetrahedronParser.getTetrahedronsCoordinates(forTest);
+		List<double[][]> actual = coordinatesTetrahedronParser.parseTetrahedronsVertexesCoordinates(forTest);
 
 		Assert.assertEquals(actual, expected);
 	}

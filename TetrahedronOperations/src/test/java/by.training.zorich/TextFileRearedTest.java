@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TextFileRearedTest {
 	@Test
-	public void testTextReaderTest() throws TextFileReaderException{
+	public void testTextReaderTest() throws TextFileReaderException {
 		//TODO: почему не проходит проверку
 		TextFileReaderImpl textFileReader = new TextFileReaderImpl();
 

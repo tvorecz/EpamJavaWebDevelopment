@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TetrahedronCreatorImpl implements PolyhedronCreator {
-	private String uri = "repository/data.txt";
+	private String uri;
 	private TextFileReader textFileReader;
 	private CoordinatesPolyhedronParser coordinatesPolyhedronParser;
 
@@ -29,11 +29,11 @@ public class TetrahedronCreatorImpl implements PolyhedronCreator {
 
 
 	@Override
-	public List<Polyhedron> createPolyherdons() throws TetrahedronCreatorException{
+	public List<Polyhedron> createPolyherdons() throws TetrahedronCreatorException {
 		List<Polyhedron> tetrahedronList = Collections.emptyList();
 		try {
 			List<String> linesWithTetrahedronCoordinates = textFileReader.getValidData(uri);
-			List<double[][]> tetrahedronsCoordinates = coordinatesPolyhedronParser.getTetrahedronsCoordinates(linesWithTetrahedronCoordinates);
+			List<double[][]> tetrahedronsCoordinates = coordinatesPolyhedronParser.parseTetrahedronsVertexesCoordinates(linesWithTetrahedronCoordinates);
 
 			tetrahedronList = new ArrayList<>();
 
