@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <properties>
+        <property name="fileName">logs/log.log</property>
+        <property name="basePattern">%d{HH:mm:ss, dd MMM yyyy} [%-5p] (%F:%L) — %message%n</property>
+    </properties>
+
+    <appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${basePattern}" />
+        </Console>
+
+        <File name="FILE" filename="${fileName}">
+            <PatternLayout pattern="${basePattern}" />
+        </File>
+    </appenders>
+
+    <loggers>
+        <logger name="by.training.zorich.action.reader.impl.TextFileReaderImpl" level="ERROR">
+            <appender-ref ref="FILE"/>
+        </logger>
+
+        <logger name="by.training.zorich.action.parser.impl.CoordinatesTetrahedronParserImpl" level="ERROR">
+            <appender-ref ref="FILE"/>
+        </logger>
+
+        <logger name="by.training.zorich.action.creator.impl.TetrahedronCreatorImpl" level="ERROR">
+            <appender-ref ref="FILE"/>
+        </logger>
+
+        <root level = "DEBUG">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </loggers>
+
+
+</configuration>
