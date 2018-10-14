@@ -2,15 +2,15 @@ package by.training.zorich.domain;
 
 import java.io.Serializable;
 
-public class TetraheronCharacteristic implements Serializable{
+public class TetrahedronCharacteristic implements Serializable{
 	private double volume;
 	private double square;
 	private double perimeter;
 
-	public TetraheronCharacteristic() {
+	public TetrahedronCharacteristic() {
 	}
 
-	public TetraheronCharacteristic(double volume, double square, double perimeter) {
+	public TetrahedronCharacteristic(double volume, double square, double perimeter) {
 		this.volume = volume;
 		this.square = square;
 		this.perimeter = perimeter;
@@ -49,7 +49,7 @@ public class TetraheronCharacteristic implements Serializable{
 			return false;
 		}
 
-		TetraheronCharacteristic that = (TetraheronCharacteristic) o;
+		TetrahedronCharacteristic that = (TetrahedronCharacteristic) o;
 
 		if (Double.compare(that.volume, volume) != 0) {
 			return false;

@@ -1,9 +1,11 @@
 package by.training.zorich.storage.event;
 
-public interface EventPublisher {
-	void subscribe(EventListener eventListener);
+import by.training.zorich.storage.event.arg.EventArg;
 
-	void unsubscribe(EventListener eventListener);
+public interface EventPublisher {
+	void subscribe(EventListener eventListener, EventType eventType);
+
+	void unsubscribe(EventListener eventListener, EventType eventType);
 
 	void notifySubscribers(EventArg eventArg);
 }

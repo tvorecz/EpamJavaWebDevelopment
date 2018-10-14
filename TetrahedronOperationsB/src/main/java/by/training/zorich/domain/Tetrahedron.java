@@ -6,6 +6,7 @@ import java.util.List;
 public class Tetrahedron implements Serializable {
 	private static final long serialVersionUID = -2188739546336276763L;
 
+	private int id;
 	private Point vertexA;
 	private Point vertexB;
 	private Point vertexC;
@@ -60,6 +61,14 @@ public class Tetrahedron implements Serializable {
 		this.vertexD = vertexD;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -94,6 +103,6 @@ public class Tetrahedron implements Serializable {
 
 	@Override
 	public String toString() {
-		return getClass().getName() + "{" + "vertexA=" + vertexA + ", vertexB=" + vertexB + ", vertexC=" + vertexC + ", vertexD=" + vertexD + '}';
+		return getClass().getName() + "{" + "id=" + id + ", vertexA=" + vertexA + ", vertexB=" + vertexB + ", vertexC=" + vertexC + ", vertexD=" + vertexD + '}';
 	}
 }

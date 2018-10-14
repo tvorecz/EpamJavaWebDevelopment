@@ -1,22 +1,35 @@
 package by.training.zorich.storage.repository.impl;
 
-import by.training.zorich.storage.event.EventArg;
-import by.training.zorich.storage.event.EventListener;
+import by.training.zorich.domain.Point;
+import by.training.zorich.domain.Tetrahedron;
+import by.training.zorich.storage.event.EventPublisher;
+import by.training.zorich.storage.event.EventType;
+import by.training.zorich.storage.event.arg.AdditionTetrahedronEventArg;
+import by.training.zorich.storage.event.arg.ModificationTetrahedronEventArg;
+import by.training.zorich.storage.event.arg.RemovalTetrahedronEventArg;
+import by.training.zorich.storage.event.manager.TetrahedronEventManager;
 import by.training.zorich.storage.repository.TetrahedronRepository;
+import by.training.zorich.storage.specification.TetrahedronQuerySpecification;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 	private static TetrahedronRepositoryImpl tetrahedronRegisterImpl;
-	private List<EventListener> eventListeners;
+
+	private EventPublisher eventPublisher;
+	private Map<Integer, Tetrahedron> tetrahedronsSource;
+	Integer id;
 
 	private TetrahedronRepositoryImpl() {
-		eventListeners = new ArrayList<EventListener>();
+		eventPublisher = TetrahedronEventManager.getInstance();
+		tetrahedronsSource = new HashMap<>();
+		id = 0;
 	}
 
 	public static TetrahedronRepositoryImpl getInstance() {
-		if(tetrahedronRegisterImpl == null) {
+		if (tetrahedronRegisterImpl == null) {
 			tetrahedronRegisterImpl = new TetrahedronRepositoryImpl();
 		}
 
@@ -24,19 +37,60 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 	}
 
 	@Override
-	public void subscribe(EventListener eventListener) {
-		eventListeners.add(eventListener);
+	public void addTetrahedron(Tetrahedron tetrahedron) {
+		id++;
+
+		Tetrahedron newTetrahedron = cloneTetrahedron(tetrahedron);
+		newTetrahedron.setId(id);
+
+		tetrahedronsSource.put(id, newTetrahedron);
+
+		eventPublisher.notifySubscribers(new AdditionTetrahedronEventArg(newTetrahedron, EventType.ADD));
 	}
 
 	@Override
-	public void unsubscribe(EventListener eventListener) {
-		eventListeners.remove(eventListener);
+	public void updateTetrahedron(Tetrahedron tetrahedron) {
+		Integer index = tetrahedron.getId();
+
+		Tetrahedron updatedTetrahedron = cloneTetrahedron(tetrahedron);
+
+		tetrahedronsSource.replace(index, updatedTetrahedron);
+
+		eventPublisher.notifySubscribers(new ModificationTetrahedronEventArg(tetrahedron, EventType.UPDATE));
 	}
 
 	@Override
-	public void notifySubscribers(EventArg eventArg) {
-		for (EventListener eventListener : eventListeners) {
-			eventListener.updateTetrahedronCharacteristic(eventArg);
-		}
+	public void removeTetrahedron(Tetrahedron tetrahedron) {
+		tetrahedronsSource.remove(tetrahedron.getId());
+
+		eventPublisher.notifySubscribers(new RemovalTetrahedronEventArg(tetrahedron, EventType.REMOVE));
+	}
+
+	@Override
+	public List<Tetrahedron> query(TetrahedronQuerySpecification specification) {
+		return null;
+	}
+
+	private Tetrahedron cloneTetrahedron(Tetrahedron tetrahedron) {
+		Tetrahedron clonedTetrahedron = new Tetrahedron();
+
+		clonedTetrahedron.setId(tetrahedron.getId());
+
+		clonedTetrahedron.setVertexA(clonePoint(tetrahedron.getVertexA()));
+		clonedTetrahedron.setVertexB(clonePoint(tetrahedron.getVertexB()));
+		clonedTetrahedron.setVertexC(clonePoint(tetrahedron.getVertexC()));
+		clonedTetrahedron.setVertexD(clonePoint(tetrahedron.getVertexD()));
+
+		return clonedTetrahedron;
+	}
+
+	private Point clonePoint(Point vertex) {
+		Point clonedVertex = new Point();
+
+		clonedVertex.setCoordinateX(vertex.getCoordinateX());
+		clonedVertex.setCoordinateY(vertex.getCoordinateY());
+		clonedVertex.setCoordinateZ(vertex.getCoordinateZ());
+
+		return clonedVertex;
 	}
 }

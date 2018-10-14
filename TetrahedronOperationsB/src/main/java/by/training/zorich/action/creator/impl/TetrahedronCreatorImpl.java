@@ -30,6 +30,7 @@ public class TetrahedronCreatorImpl implements TetrahedronCreator {
 	@Override
 	public List<Tetrahedron> createTetraherdons() {
 		List<Tetrahedron> tetrahedronList = Collections.emptyList();
+
 		try {
 			List<String> linesWithTetrahedronCoordinates = textFileReader.getValidData(uri);
 			List<double[][]> tetrahedronsCoordinates = coordinatesTetrahedronParser.parseTetrahedronsVertexesCoordinates(linesWithTetrahedronCoordinates);
@@ -37,7 +38,8 @@ public class TetrahedronCreatorImpl implements TetrahedronCreator {
 			tetrahedronList = new ArrayList<>();
 
 			for (double[][] tetrahedronsCoordinate : tetrahedronsCoordinates) {
-				tetrahedronList.add(new Tetrahedron(tetrahedronsCoordinate));
+				Tetrahedron tetrahedron = new Tetrahedron(tetrahedronsCoordinate);
+				tetrahedronList.add(tetrahedron);
 			}
 
 		} catch (TextFileReaderException ex) {
