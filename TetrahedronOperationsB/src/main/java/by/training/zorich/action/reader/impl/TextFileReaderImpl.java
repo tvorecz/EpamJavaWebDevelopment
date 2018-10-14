@@ -1,6 +1,7 @@
 package by.training.zorich.action.reader.impl;
 
 import by.training.zorich.action.reader.TextFileReader;
+import by.training.zorich.action.reader.TextFileReaderException;
 import by.training.zorich.action.validator.StringTetrahedronValidator;
 import by.training.zorich.action.validator.impl.StringTetrahedronValidatorImpl;
 import org.apache.logging.log4j.LogManager;
@@ -17,8 +18,6 @@ import java.util.stream.Stream;
 
 public class TextFileReaderImpl implements TextFileReader {
 	private StringTetrahedronValidator stringTetrahedronValidator;
-
-	private final static Logger readerlogger = LogManager.getLogger(TextFileReaderImpl.class);
 
 
 	public TextFileReaderImpl() {
@@ -44,7 +43,6 @@ public class TextFileReaderImpl implements TextFileReader {
 			}
 
 		} catch (IOException ex) {
-			readerlogger.error(ex.getStackTrace().toString());
 			throw new TextFileReaderException("Reading file is failed.", ex);
 		}
 

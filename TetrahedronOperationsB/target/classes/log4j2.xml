@@ -3,7 +3,7 @@
 <configuration>
     <properties>
         <property name="fileName">logs/log.log</property>
-        <property name="basePattern">%d{HH:mm:ss, dd MMM yyyy} [%-5p] (%F:%L) — %message%n</property>
+        <property name="basePattern">%d{HH:mm:ss, dd MMM yyyy} [%-5p] (%F:%L) — %m%n</property>
     </properties>
 
     <appenders>
@@ -17,15 +17,11 @@
     </appenders>
 
     <loggers>
-        <logger name="by.training.zorich.action.reader.impl.TextFileReaderImpl" level="ERROR">
-            <appender-ref ref="FILE"/>
-        </logger>
-
-        <logger name="by.training.zorich.action.parser.impl.CoordinatesTetrahedronParserImpl" level="ERROR">
-            <appender-ref ref="FILE"/>
-        </logger>
-
         <logger name="by.training.zorich.action.creator.impl.TetrahedronCreatorImpl" level="ERROR">
+            <appender-ref ref="FILE"/>
+        </logger>
+
+        <logger name="by.training.zorich.action" level="DEBUG">
             <appender-ref ref="FILE"/>
         </logger>
 

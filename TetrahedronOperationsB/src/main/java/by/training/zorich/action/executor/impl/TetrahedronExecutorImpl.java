@@ -1,10 +1,7 @@
 package by.training.zorich.action.executor.impl;
 
 import by.training.zorich.action.executor.TetrahedronExecutor;
-import by.training.zorich.domain.CuttingCoordinatePlane;
-import by.training.zorich.domain.Point;
-import by.training.zorich.domain.Tetrahedron;
-import by.training.zorich.domain.TetrahedronEdge;
+import by.training.zorich.domain.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

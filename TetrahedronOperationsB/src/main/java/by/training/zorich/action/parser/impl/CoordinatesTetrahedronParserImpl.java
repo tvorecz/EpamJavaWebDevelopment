@@ -1,6 +1,7 @@
 package by.training.zorich.action.parser.impl;
 
-import by.training.zorich.action.parser.CoordinatesPolyhedronParser;
+import by.training.zorich.action.parser.CoordinatesTetrahedronParser;
+import by.training.zorich.action.parser.CoordinatesTetrahedronParserExсeption;
 import by.training.zorich.action.validator.VertexesTetrahedronValidator;
 import by.training.zorich.action.validator.impl.VertexesTetrahedronValidatorImpl;
 import org.apache.logging.log4j.LogManager;
@@ -9,10 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoordinatesTetrahedronParserImpl implements CoordinatesPolyhedronParser {
+public class CoordinatesTetrahedronParserImpl implements CoordinatesTetrahedronParser {
 	private final static String VERTEXES_SPLITER = "&";
 	private final static String POINTS_SPLITER = "\\s+";
-	private final static Logger parserlogger = LogManager.getLogger(CoordinatesTetrahedronParserImpl.class);
 
 	private VertexesTetrahedronValidator vertexesTetrahedronValidator;
 
@@ -21,7 +21,7 @@ public class CoordinatesTetrahedronParserImpl implements CoordinatesPolyhedronPa
 	}
 
 	@Override
-	public List<double[][]> parseTetrahedronsVertexesCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption{
+	public List<double[][]> parseTetrahedronsVertexesCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption {
 		List<double[][]> tetrahedronsCoordinates = new ArrayList<>();
 
 		for (String tetrahedronData: linesWithTetrahedronCoordinates) {
@@ -33,7 +33,6 @@ public class CoordinatesTetrahedronParserImpl implements CoordinatesPolyhedronPa
 					tetrahedronsCoordinates.add(vertexesTetrahedron);
 				}
 			} catch (NumberFormatException ex) {
-				parserlogger.error(ex.getStackTrace().toString());
 				throw new CoordinatesTetrahedronParserExсeption("Converting String to Double is faild!", ex);
 			}
 		}

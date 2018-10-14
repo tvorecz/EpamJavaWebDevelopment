@@ -22,11 +22,11 @@ public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronVali
 	}
 
 	//	проверка двух точек на совпадение координат
-	private boolean isEqualPoints(double[] firstPoint, double[] secondPoint) {
+	private boolean isEqualPoints(double[] firstPointCoordinates, double[] secondPointCoordinates) {
 		int countOfMatches = 0;
 
-		for (int i = 0; i < firstPoint.length; i++) {
-			if (firstPoint[i] == secondPoint[i]) {
+		for (int i = 0; i < firstPointCoordinates.length; i++) {
+			if (firstPointCoordinates[i] == secondPointCoordinates[i]) {
 				countOfMatches++;
 			}
 		}
