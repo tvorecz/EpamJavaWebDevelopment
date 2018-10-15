@@ -56,4 +56,19 @@ public class TetrahedronRegisterImpl implements TetrahedronRegister, EventListen
 
 		return tetrahedronCharacteristic;
 	}
+
+	@Override
+	public double perimeter(int tetrahedronId) {
+		return tetrahedronsCharacteristicsMap.get(tetrahedronId).getPerimeter();
+	}
+
+	@Override
+	public double volume(int tetrahedronId) {
+		return tetrahedronsCharacteristicsMap.get(tetrahedronId).getVolume();
+	}
+
+	@Override
+	public double totalSquare(int tetrahedronId) {
+		return tetrahedronsCharacteristicsMap.get(tetrahedronId).getSquare();
+	}
 }

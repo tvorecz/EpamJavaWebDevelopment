@@ -7,6 +7,7 @@ public class Tetrahedron implements Serializable {
 	private static final long serialVersionUID = -2188739546336276763L;
 
 	private int id;
+	private String name;
 	private Point vertexA;
 	private Point vertexB;
 	private Point vertexC;
@@ -67,6 +68,14 @@ public class Tetrahedron implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
