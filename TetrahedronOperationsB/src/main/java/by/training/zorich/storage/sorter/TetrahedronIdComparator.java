@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class TetrahedronIdComparator implements Comparator<Tetrahedron> {
 	@Override
 	public int compare(Tetrahedron o1, Tetrahedron o2) {
-		return 0;
+		return (new Integer(o1.getId()).compareTo(new Integer(o2.getId())));
 	}
 }
