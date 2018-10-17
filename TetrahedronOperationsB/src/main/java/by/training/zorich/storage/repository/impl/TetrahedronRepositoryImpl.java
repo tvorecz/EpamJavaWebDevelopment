@@ -8,11 +8,13 @@ import by.training.zorich.storage.event.arg.AdditionTetrahedronEventArg;
 import by.training.zorich.storage.event.arg.ModificationTetrahedronEventArg;
 import by.training.zorich.storage.event.arg.RemovalTetrahedronEventArg;
 import by.training.zorich.storage.event.manager.TetrahedronEventManager;
+import by.training.zorich.storage.register.TetrahedronRegister;
+import by.training.zorich.storage.register.impl.TetrahedronRegisterImpl;
 import by.training.zorich.storage.repository.TetrahedronRepository;
-import by.training.zorich.storage.specification.TetrahedronManipulator;
 import by.training.zorich.storage.specification.TetrahedronSpecification;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +26,10 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 	IdGenerator idGenerator;
 
 	private TetrahedronRepositoryImpl() {
-		eventPublisher = TetrahedronEventManager.getInstance();
 		tetrahedronsSource = new HashMap<>();
 		idGenerator = new IdGenerator();
+
+		setSubscribers();
 	}
 
 	public static TetrahedronRepositoryImpl getInstance() {
@@ -39,16 +42,28 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 
 	@Override
 	public void addTetrahedrons(List<Tetrahedron> tetrahedrons, TetrahedronSpecification specification) {
-
+		for (Tetrahedron tetrahedron : tetrahedrons) {
+			if (specification.isSatisfiedBy(tetrahedron)) {
+				tetrahedronsSource.put(idGenerator.nextId(), tetrahedron);
+			}
+		}
 	}
 
 	@Override
 	public void removeTetrahedrons(TetrahedronSpecification specification) {
+		Iterator<Tetrahedron> tetrahedronIterator = tetrahedronsSource.values().iterator();
 
+		while (tetrahedronIterator.hasNext()) {
+			Tetrahedron tetrahedron = tetrahedronIterator.next();
+
+			if (specification.isSatisfiedBy(tetrahedron)) {
+				tetrahedronIterator.remove();
+			}
+		}
 	}
 
 	@Override
-	public void updateTetrahedrons(TetrahedronSpecification specification, TetrahedronManipulator manipulator) {
+	public void updateTetrahedrons(TetrahedronSpecification specification) {
 
 	}
 
@@ -108,5 +123,12 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 		clonedVertex.setCoordinateZ(vertex.getCoordinateZ());
 
 		return clonedVertex;
+	}
+
+	private void setSubscribers() {
+		eventPublisher = TetrahedronEventManager.getInstance();
+		eventPublisher.subscribe(TetrahedronRegisterImpl.getInstance(), EventType.ADD);
+		eventPublisher.subscribe(TetrahedronRegisterImpl.getInstance(), EventType.UPDATE);
+		eventPublisher.subscribe(TetrahedronRegisterImpl.getInstance(), EventType.REMOVE);
 	}
 }

@@ -2,7 +2,6 @@ package by.training.zorich.storage.specification.common.impl;
 
 import by.training.zorich.domain.Tetrahedron;
 import by.training.zorich.storage.criterion.SingleTetrahedronCriterion;
-import by.training.zorich.storage.extractant.TetrahedronFieldExtractant;
 import by.training.zorich.storage.specification.common.TetrahedronCommonSpecificationImpl;
 
 public class TetrahedronEqualToSpecificationImpl extends TetrahedronCommonSpecificationImpl{

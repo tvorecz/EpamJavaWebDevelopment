@@ -2,13 +2,13 @@ package by.training.zorich.storage.criterion.impl;
 
 import by.training.zorich.domain.Tetrahedron;
 import by.training.zorich.storage.criterion.SingleTetrahedronCriterion;
-import by.training.zorich.storage.extractant.IntegerFieldTetrahedronExtractant;
+import by.training.zorich.storage.accesser.IntegerFieldTetrahedronAccesser;
 
 public class SingleIntegerTetrahedronCriterionImpl implements SingleTetrahedronCriterion {
-	IntegerFieldTetrahedronExtractant integerFieldTetrahedronExtractant;
+	IntegerFieldTetrahedronAccesser integerFieldTetrahedronExtractant;
 	Integer criterion;
 
-	public SingleIntegerTetrahedronCriterionImpl(IntegerFieldTetrahedronExtractant integerFieldTetrahedronExtractant, Integer criterion) {
+	public SingleIntegerTetrahedronCriterionImpl(IntegerFieldTetrahedronAccesser integerFieldTetrahedronExtractant, Integer criterion) {
 		this.integerFieldTetrahedronExtractant = integerFieldTetrahedronExtractant;
 		this.criterion = criterion;
 	}

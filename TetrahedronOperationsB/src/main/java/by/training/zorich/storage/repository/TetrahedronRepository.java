@@ -1,7 +1,6 @@
 package by.training.zorich.storage.repository;
 
 import by.training.zorich.domain.Tetrahedron;
-import by.training.zorich.storage.specification.TetrahedronManipulator;
 import by.training.zorich.storage.specification.TetrahedronSpecification;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public interface TetrahedronRepository {
 
 	void updateTetrahedron(Tetrahedron tetrahedron);
 
-	void updateTetrahedrons(TetrahedronSpecification specification, TetrahedronManipulator manipulator);
+	void updateTetrahedrons(TetrahedronSpecification specification);
 
 	List<Tetrahedron> query(TetrahedronSpecification specification);
 }
