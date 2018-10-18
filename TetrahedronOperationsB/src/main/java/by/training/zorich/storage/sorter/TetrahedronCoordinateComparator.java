@@ -1,14 +1,14 @@
 package by.training.zorich.storage.sorter;
 
 import by.training.zorich.domain.Tetrahedron;
-import by.training.zorich.storage.accesser.DoubleFieldTetrahedronAccesser;
+import by.training.zorich.storage.accessor.DoubleFieldTetrahedronAccessor;
 
 import java.util.Comparator;
 
 public class TetrahedronCoordinateComparator implements Comparator<Tetrahedron> {
-	private DoubleFieldTetrahedronAccesser coordinateTetrahedronCriterion;
+	private DoubleFieldTetrahedronAccessor coordinateTetrahedronCriterion;
 
-	public TetrahedronCoordinateComparator(DoubleFieldTetrahedronAccesser coordinateTetrahedronCriterion) {
+	public TetrahedronCoordinateComparator(DoubleFieldTetrahedronAccessor coordinateTetrahedronCriterion) {
 		this.coordinateTetrahedronCriterion = coordinateTetrahedronCriterion;
 	}
 

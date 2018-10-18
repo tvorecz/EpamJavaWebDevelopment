@@ -5,9 +5,9 @@ import by.training.zorich.domain.Tetrahedron;
 public interface TetrahedronSpecification {
 	boolean isSatisfiedBy(Tetrahedron tetrahedron);
 
-	TetrahedronSpecification And(TetrahedronSpecification otherSpecification);
+	TetrahedronSpecification and(TetrahedronSpecification otherSpecification);
 
-	TetrahedronSpecification Or(TetrahedronSpecification otherSpecification);
+	TetrahedronSpecification or(TetrahedronSpecification otherSpecification);
 
-	TetrahedronSpecification Not();
+	TetrahedronSpecification not();
 }

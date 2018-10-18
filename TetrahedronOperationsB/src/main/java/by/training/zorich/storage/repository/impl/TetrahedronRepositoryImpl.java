@@ -8,15 +8,12 @@ import by.training.zorich.storage.event.arg.AdditionTetrahedronEventArg;
 import by.training.zorich.storage.event.arg.ModificationTetrahedronEventArg;
 import by.training.zorich.storage.event.arg.RemovalTetrahedronEventArg;
 import by.training.zorich.storage.event.manager.TetrahedronEventManager;
-import by.training.zorich.storage.register.TetrahedronRegister;
 import by.training.zorich.storage.register.impl.TetrahedronRegisterImpl;
 import by.training.zorich.storage.repository.TetrahedronRepository;
 import by.training.zorich.storage.specification.TetrahedronSpecification;
+import by.training.zorich.storage.updater.TetrahedronUpdater;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 	private static TetrahedronRepositoryImpl tetrahedronRegisterImpl;
@@ -63,8 +60,16 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 	}
 
 	@Override
-	public void updateTetrahedrons(TetrahedronSpecification specification) {
+	public void updateTetrahedrons(TetrahedronSpecification specification, TetrahedronUpdater tetrahedronUpdater) {
+		Iterator<Tetrahedron> tetrahedronIterator = tetrahedronsSource.values().iterator();
 
+		while (tetrahedronIterator.hasNext()) {
+			Tetrahedron tetrahedron = tetrahedronIterator.next();
+
+			if (specification.isSatisfiedBy(tetrahedron)) {
+				tetrahedronUpdater.update(tetrahedron);
+			}
+		}
 	}
 
 	@Override
@@ -99,6 +104,14 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 
 	@Override
 	public List<Tetrahedron> query(TetrahedronSpecification specification) {
+		List<Tetrahedron> tetrahedronList = new ArrayList<>();
+
+		for (Tetrahedron tetrahedron : tetrahedronsSource.values()) {
+			if (specification.isSatisfiedBy(tetrahedron)) {
+				tetrahedronList.add(cloneTetrahedron(tetrahedron));
+			}
+		}
+
 		return null;
 	}
 

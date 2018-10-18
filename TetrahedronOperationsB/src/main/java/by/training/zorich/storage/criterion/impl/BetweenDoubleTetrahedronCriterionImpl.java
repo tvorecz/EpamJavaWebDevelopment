@@ -2,14 +2,14 @@ package by.training.zorich.storage.criterion.impl;
 
 import by.training.zorich.domain.Tetrahedron;
 import by.training.zorich.storage.criterion.BetweenTetrahedronCriterion;
-import by.training.zorich.storage.accesser.DoubleFieldTetrahedronAccesser;
+import by.training.zorich.storage.accessor.DoubleFieldTetrahedronAccessor;
 
 public class BetweenDoubleTetrahedronCriterionImpl implements BetweenTetrahedronCriterion{
-	DoubleFieldTetrahedronAccesser doubleFieldTetrahedronExtractant;
+	DoubleFieldTetrahedronAccessor doubleFieldTetrahedronExtractant;
 	Double minCriterion;
 	Double maxCriterion;
 
-	public BetweenDoubleTetrahedronCriterionImpl(DoubleFieldTetrahedronAccesser doubleFieldTetrahedronExtractant, Double minCriterion, Double maxCriterion) {
+	public BetweenDoubleTetrahedronCriterionImpl(DoubleFieldTetrahedronAccessor doubleFieldTetrahedronExtractant, Double minCriterion, Double maxCriterion) {
 		this.doubleFieldTetrahedronExtractant = doubleFieldTetrahedronExtractant;
 		this.minCriterion = minCriterion;
 		this.maxCriterion = maxCriterion;
