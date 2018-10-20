@@ -1,6 +1,6 @@
 package by.training.zorich.storage.event;
 
-import by.training.zorich.storage.event.arg.EventArg;
+import by.training.zorich.storage.event.impl.arg.EventArg;
 
 public interface EventPublisher {
 	void subscribe(EventListener eventListener, EventType eventType);

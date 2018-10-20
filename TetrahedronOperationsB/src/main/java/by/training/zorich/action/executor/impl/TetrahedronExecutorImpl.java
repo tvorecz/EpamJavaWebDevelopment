@@ -50,16 +50,14 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 
 	@Override
 	public double[] calculateRatiosOfVolumes(Tetrahedron tetrahedron, CuttingCoordinatePlane cuttingCoordinatePlane) {
-		//создать грани тетраэдра
 		Map<Edge, TetrahedronEdge> edges = createTetrahedronEdgesAsMap(tetrahedron);
 
-		//для удобства перебора создает список точек пересечения
 		List<Point> intersectionPoints = createListOfIntersectionPoints(cuttingCoordinatePlane);
 
-		//определить, на каких гранях находятся пересечения с плоскостями
+		//edges the intersection points are located on
 		Map<Point, TetrahedronEdge> intersectionsAndEdges = getIntersectionsAndEdges(edges, intersectionPoints);
 
-		//определить общую вершину образованного секущей плоскостью тетраэдра
+		//vertex for edges with intersection points
 		Point vertex = getVertexOfNewTetrahedron(intersectionsAndEdges);
 
 		Tetrahedron newTetrahedron = new Tetrahedron(cuttingCoordinatePlane.getIntersectionPointA(), cuttingCoordinatePlane.getIntersectionPointB(), cuttingCoordinatePlane.getIntersectionPointC(), vertex);
@@ -88,8 +86,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 
 			double otherEdge = calculateModulusOfVector(vectorCoodinates);
 
-			//если длина двух граней не совпадает
-			//перед сравнением округляем до целого числа
+			//for equals two edges length we get their difference and equal it with epsilon
 			if ((Math.abs(firstEdge - otherEdge)) > EPS) {
 				return false;
 			}
@@ -107,9 +104,9 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return hasThreePointsZero(matrixCoordinates);
 	}
 
-	/*для нахождения площади*/
+	/*for square*/
 
-	//находит площадь одной грани
+	//square of one edge
 	private double calculateTriangleSquare(Point startPoint, Point firstPoint, Point secondPoint) {
 		double triangleSquare = 0.0;
 
@@ -125,7 +122,6 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return triangleSquare;
 	}
 
-	//рассчитывает вектороное произведение
 	private double[] calculateVectorProduct(double[][] vectorsMatrix) {
 		double[] vectorProduct = new double[3];
 
@@ -136,14 +132,14 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return vectorProduct;
 	}
 
-	//находит модуль вектора (длина его отрезка)
+	//length of egde (vector)
 	private double calculateModulusOfVector(double[] vector) {
 		double modulusOfVector = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0) + Math.pow(vector[2], 2.0));
 		return modulusOfVector;
 	}
 
-	/*для нахождения объема*/
-	//создает матрицу векторов из одной вершины тетраэдра
+	/*for volume*/
+	//matrix of vectors from the same vertx of the tertahedron
 	private double[][] calculateVectorsMatrix(Tetrahedron tetrahedron) {
 		double[][] vectorsMatrix = new double[3][3];
 
@@ -154,7 +150,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return vectorsMatrix;
 	}
 
-	//нахождение векторов по координатам вершин
+	//get vector using vertexes coordinates
 	private double[] calculateVectorCoodinates(Point firstPoint, Point secondPoint) {
 		double[] vectorCoodinates = new double[3];
 
@@ -165,14 +161,13 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return vectorCoodinates;
 	}
 
-	//смешанное скалярное произведение векторов (равно определителю матрицы этих векторов)
 	private double calculateScalarTripleProduct(double[][] vectorsMatrix) {
 		double scalarTripleProduct = vectorsMatrix[0][0] * vectorsMatrix[1][1] * vectorsMatrix[2][2] - vectorsMatrix[0][0] * vectorsMatrix[1][2] * vectorsMatrix[2][1] - vectorsMatrix[0][1] * vectorsMatrix[1][0] * vectorsMatrix[2][2] + vectorsMatrix[0][1] * vectorsMatrix[1][2] * vectorsMatrix[2][0] + vectorsMatrix[0][2] * vectorsMatrix[1][0] * vectorsMatrix[2][1] - vectorsMatrix[0][2] * vectorsMatrix[1][1] * vectorsMatrix[2][0];
 
 		return scalarTripleProduct;
 	}
 
-	/*для проверки основания фигуры*/
+	/*for checking basis of tetrahedron*/
 
 	private boolean hasThreePointsZero(double[][] matrixCoodninates) {
 		for (int i = 0; i < matrixCoodninates[0].length; i++) {
@@ -213,7 +208,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return coordinates;
 	}
 
-	/*Для определения объема фигур, получающихся при рассечении тетраэдра*/
+	/*for calculation volume of new figures after dissection*/
 
 	private boolean isPointOnTheEdge(Point point, TetrahedronEdge tetrahedronEdge) {
 		double[] vector = calculateVectorCoodinates(tetrahedronEdge.getPointA(), tetrahedronEdge.getPointB());
@@ -234,7 +229,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		}
 	}
 
-	//проверяем, если ли в координатах вектора нули
+	//do the vector's coordinates have zeros
 	private int calculateCountOfZeroCoordinates(double[] vector) {
 		int count = 0;
 
@@ -247,7 +242,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return count;
 	}
 
-	//классическое равенство уравнений прямой (все три уравнения равны)
+	//common equation of line in space
 	private boolean classicEquationsOfLine(double firstResult, double secondResult, double thirdResult) {
 		boolean onEdge = false;
 
@@ -256,7 +251,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return onEdge;
 	}
 
-	//уравнение прямой для одного измерения
+	//one case of equation of line
 	private double calculateEquationOfLine(double checkCoordinate, double firstCoordinate, double secondCoordinate) {
 		double result = 0;
 
@@ -269,7 +264,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return result;
 	}
 
-	//равенство уравнений прямой при одном нуле в векторе
+	//equation of line with one zero in vector
 	private boolean equationsOfLineWithZero(double[] resultsEquationOfLine, double[] vector) {
 		boolean onEdge = false;
 
@@ -301,7 +296,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return onEdge;
 	}
 
-	//равенство уравнений прямой при двух нулях в векторе
+	//equation of line with two zeroes in vector
 	private boolean equationsOfLineWithTwoZero(double[] resultsEquationOfLine, double[] vector) {
 		boolean onEdge = false;
 
@@ -354,7 +349,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return edges;
 	}
 
-	//найти на каких гранях лежат точки пересекающей плоскости
+	//edges with intersections
 	private Map<Point, TetrahedronEdge> getIntersectionsAndEdges(Map<Edge, TetrahedronEdge> edges, List<Point> intersectionPoints) {
 		Map<Point, TetrahedronEdge> intersectionsAndEdges = new HashMap<Point, TetrahedronEdge>();
 
@@ -379,7 +374,7 @@ public class TetrahedronExecutorImpl implements TetrahedronExecutor {
 		return intersectionPoints;
 	}
 
-	//находит вершину тетраэдра, образованного пересекающей плоскостью
+	//vertex of new tetrahedron after dissection
 	private Point getVertexOfNewTetrahedron(Map<Point, TetrahedronEdge> intersectionsAndEdges) {
 		List<Point> points = createListOfPoints(intersectionsAndEdges);
 

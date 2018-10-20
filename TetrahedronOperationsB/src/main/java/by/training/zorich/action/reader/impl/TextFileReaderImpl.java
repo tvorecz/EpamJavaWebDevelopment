@@ -1,11 +1,9 @@
 package by.training.zorich.action.reader.impl;
 
-import by.training.zorich.action.reader.TextFileReader;
 import by.training.zorich.action.reader.TextFileReaderException;
+import by.training.zorich.action.reader.TextFileReader;
 import by.training.zorich.action.validator.StringTetrahedronValidator;
 import by.training.zorich.action.validator.impl.StringTetrahedronValidatorImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +16,6 @@ import java.util.stream.Stream;
 
 public class TextFileReaderImpl implements TextFileReader {
 	private StringTetrahedronValidator stringTetrahedronValidator;
-
 
 	public TextFileReaderImpl() {
 		stringTetrahedronValidator = new StringTetrahedronValidatorImpl();
@@ -43,7 +40,7 @@ public class TextFileReaderImpl implements TextFileReader {
 			}
 
 		} catch (IOException ex) {
-			throw new TextFileReaderException("Reading file is failed.", ex);
+			throw new TextFileReaderException("Reading of file is failed.", ex);
 		}
 
 		return linesWithTetrahedronCoordinates;

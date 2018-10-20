@@ -1,7 +1,7 @@
 package by.training.zorich.storage.specification.impl;
 
 import by.training.zorich.domain.Tetrahedron;
-import by.training.zorich.storage.criterion.impl.BetweenDoubleTetrahedronCriterionImpl;
+import by.training.zorich.storage.criterion.impl.impl.BetweenDoubleTetrahedronCriterionImpl;
 
 public class TetrahedronBetweenDoubleSpecificationImpl extends TetrahedronCommonSpecificationImpl {
 	BetweenDoubleTetrahedronCriterionImpl betweenDoubleTetrahedronCriterion;

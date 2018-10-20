@@ -2,7 +2,7 @@ package by.training.zorich.storage.updater.impl;
 
 import by.training.zorich.domain.Point;
 import by.training.zorich.domain.Tetrahedron;
-import by.training.zorich.storage.accessor.PointFieldTetrahedronAccessor;
+import by.training.zorich.storage.accessor.impl.PointFieldTetrahedronAccessor;
 import by.training.zorich.storage.updater.CalculateUpdatingValue;
 
 public class TetrahedronYCoordinateUpdaterImpl extends TetrahedronCommonUpdaterImpl {

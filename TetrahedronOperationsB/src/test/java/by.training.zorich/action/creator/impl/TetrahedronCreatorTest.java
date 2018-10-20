@@ -3,13 +3,10 @@ package by.training.zorich.action.creator.impl;
 import by.training.zorich.action.parser.impl.CoordinatesTetrahedronParserImpl;
 import by.training.zorich.action.reader.impl.TextFileReaderImpl;
 import by.training.zorich.domain.Tetrahedron;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 

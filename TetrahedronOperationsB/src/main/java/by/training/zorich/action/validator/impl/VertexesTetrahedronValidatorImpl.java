@@ -4,8 +4,7 @@ import by.training.zorich.action.validator.VertexesTetrahedronValidator;
 
 public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronValidator {
 
-	//	метод проверяет, нет ли одинаковых точек в наборе
-	//	если хотя бы две точки совпадают, то тетраэдр построить нельзя
+	//	if two or more vertexes have the same coordinates, tetrahedron doesn't exists
 	@Override
 	public boolean isValid(double[][] tetrahedronVertexesCoordinates) {
 		boolean result = true;
@@ -21,7 +20,7 @@ public class VertexesTetrahedronValidatorImpl implements VertexesTetrahedronVali
 		return true;
 	}
 
-	//	проверка двух точек на совпадение координат
+	//	check two points do they have the same coordinates
 	private boolean isEqualPoints(double[] firstPointCoordinates, double[] secondPointCoordinates) {
 		int countOfMatches = 0;
 

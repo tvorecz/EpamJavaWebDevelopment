@@ -24,7 +24,7 @@ public class CoordinatesTetrahedronParserImpl implements CoordinatesTetrahedronP
 	public List<double[][]> parseTetrahedronsVertexesCoordinates(List<String> linesWithTetrahedronCoordinates) throws CoordinatesTetrahedronParserExсeption {
 		List<double[][]> tetrahedronsCoordinates = new ArrayList<>();
 
-		for (String tetrahedronData: linesWithTetrahedronCoordinates) {
+		for (String tetrahedronData : linesWithTetrahedronCoordinates) {
 
 			try {
 				double[][] vertexesTetrahedron = extractTetrahedronVertexes(tetrahedronData);
@@ -40,7 +40,7 @@ public class CoordinatesTetrahedronParserImpl implements CoordinatesTetrahedronP
 		return tetrahedronsCoordinates;
 	}
 
-	private double[][] extractTetrahedronVertexes(String tetrahedronData) throws NumberFormatException{
+	private double[][] extractTetrahedronVertexes(String tetrahedronData) throws NumberFormatException {
 		String[] vertexes = tetrahedronData.split(VERTEXES_SPLITER);
 
 		double[][] vetrexesCoordinates = new double[4][3];
@@ -49,10 +49,10 @@ public class CoordinatesTetrahedronParserImpl implements CoordinatesTetrahedronP
 			vetrexesCoordinates[i] = extactVertexCoordinates(vertexes[i]);
 		}
 
-		return  vetrexesCoordinates;
+		return vetrexesCoordinates;
 	}
 
-	private double[] extactVertexCoordinates(String vetrexData) throws NumberFormatException{
+	private double[] extactVertexCoordinates(String vetrexData) throws NumberFormatException {
 		String[] points = vetrexData.split(POINTS_SPLITER);
 
 		double[] coordinates = new double[3];

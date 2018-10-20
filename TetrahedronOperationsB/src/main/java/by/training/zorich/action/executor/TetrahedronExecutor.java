@@ -8,7 +8,7 @@ public interface TetrahedronExecutor {
 
 	double calculateVolume(Tetrahedron tetrahedron);
 
-	double calculatePerimeter (Tetrahedron tetrahedron);
+	double calculatePerimeter(Tetrahedron tetrahedron);
 
 	double[] calculateRatiosOfVolumes(Tetrahedron tetrahedron, CuttingCoordinatePlane cuttingCoordinatePlane);
 

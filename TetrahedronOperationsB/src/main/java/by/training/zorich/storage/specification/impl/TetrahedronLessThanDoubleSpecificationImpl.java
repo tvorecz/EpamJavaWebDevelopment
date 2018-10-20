@@ -1,7 +1,7 @@
 package by.training.zorich.storage.specification.impl;
 
 import by.training.zorich.domain.Tetrahedron;
-import by.training.zorich.storage.criterion.impl.SingleDoubleTetrahedronCriterionImpl;
+import by.training.zorich.storage.criterion.impl.impl.SingleDoubleTetrahedronCriterionImpl;
 
 public class TetrahedronLessThanDoubleSpecificationImpl extends TetrahedronCommonSpecificationImpl {
 	SingleDoubleTetrahedronCriterionImpl singleDoubleTetrahedronCriterion;
@@ -12,6 +12,6 @@ public class TetrahedronLessThanDoubleSpecificationImpl extends TetrahedronCommo
 
 	@Override
 	public boolean isSatisfiedBy(Tetrahedron tetrahedron) {
-		return singleDoubleTetrahedronCriterion.criterionValue() > singleDoubleTetrahedronCriterion.extractTetrahedronField(tetrahedron) ;
+		return singleDoubleTetrahedronCriterion.criterionValue() > singleDoubleTetrahedronCriterion.extractTetrahedronField(tetrahedron);
 	}
 }

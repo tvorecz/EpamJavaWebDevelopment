@@ -2,7 +2,7 @@ package by.training.zorich.domain;
 
 import java.io.Serializable;
 
-public class TetrahedronCharacteristic implements Serializable{
+public class TetrahedronCharacteristic implements Serializable {
 	private double volume;
 	private double square;
 	private double perimeter;

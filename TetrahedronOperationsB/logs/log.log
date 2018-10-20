@@ -59,25 +59,25 @@
 19:13:24, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — [Ljava.lang.StackTraceElement;@34b7ac2f
 19:17:31, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — [Ljava.lang.StackTraceElement;@34b7ac2f
 19:17:31, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — [Ljava.lang.StackTraceElement;@34b7ac2f
-19:18:39, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:18:39, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:21:57, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:21:57, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:22:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:22:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:24:32, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:24:32, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:25:31, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:25:31, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:26:41, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:26:41, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:26:53, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:26:53, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:28:14, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:28:14, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:28:55, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:28:55, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:29:05, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:29:05, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:29:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
-19:29:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — by.training.zorich.action.reader.TextFileReaderException: Reading file is failed.
+19:18:39, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:18:39, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:21:57, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:21:57, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:22:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:22:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:24:32, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:24:32, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:25:31, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:25:31, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:26:41, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:26:41, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:26:53, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:26:53, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:28:14, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:28:14, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:28:55, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:28:55, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:29:05, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:29:05, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:29:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
+19:29:50, 13 окт 2018 [ERROR] (TetrahedronCreatorImpl.java:44) — TextFileReaderException: Reading file is failed.
