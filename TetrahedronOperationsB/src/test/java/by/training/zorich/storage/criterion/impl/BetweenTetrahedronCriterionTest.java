@@ -6,7 +6,7 @@ import by.training.zorich.storage.accessor.impl.impl.CoordinateXVertexTetrahedro
 import by.training.zorich.storage.accessor.impl.impl.IdTetrahedronAccessorImpl;
 import by.training.zorich.storage.accessor.impl.impl.VertexATetrahedronTetrahedronAccessorImpl;
 import by.training.zorich.storage.criterion.impl.impl.BetweenDoubleTetrahedronCriterionImpl;
-import by.training.zorich.storage.criterion.impl.impl.BetweenIntegerTetrahedronCriterion;
+import by.training.zorich.storage.criterion.impl.impl.BetweenIntegerTetrahedronCriterionImpl;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -34,7 +34,7 @@ public class BetweenTetrahedronCriterionTest {
 
 	@Test
 	public void testBetweenIntegerTetrahedronCriterionField() {
-		BetweenTetrahedronCriterion betweenTetrahedronCriterion = new BetweenIntegerTetrahedronCriterion(new IdTetrahedronAccessorImpl(), minInteger, maxInteger);
+		BetweenTetrahedronCriterion betweenTetrahedronCriterion = new BetweenIntegerTetrahedronCriterionImpl(new IdTetrahedronAccessorImpl(), minInteger, maxInteger);
 
 		Integer actual = (Integer) betweenTetrahedronCriterion.extractTetrahedronField(tetrahedron);
 		Integer expected = tetrahedronId;
@@ -44,7 +44,7 @@ public class BetweenTetrahedronCriterionTest {
 
 	@Test
 	public void testBetweenIntegerTetrahedronCriterionMinValue() {
-		BetweenTetrahedronCriterion betweenTetrahedronCriterion = new BetweenIntegerTetrahedronCriterion(new IdTetrahedronAccessorImpl(), minInteger, maxInteger);
+		BetweenTetrahedronCriterion betweenTetrahedronCriterion = new BetweenIntegerTetrahedronCriterionImpl(new IdTetrahedronAccessorImpl(), minInteger, maxInteger);
 
 		Integer actual = (Integer) betweenTetrahedronCriterion.criterionMinValue();
 		Integer expected = minInteger;
@@ -54,7 +54,7 @@ public class BetweenTetrahedronCriterionTest {
 
 	@Test
 	public void testBetweenIntegerTetrahedronCriterionMaxValue() {
-		BetweenTetrahedronCriterion betweenTetrahedronCriterion = new BetweenIntegerTetrahedronCriterion(new IdTetrahedronAccessorImpl(), minInteger, maxInteger);
+		BetweenTetrahedronCriterion betweenTetrahedronCriterion = new BetweenIntegerTetrahedronCriterionImpl(new IdTetrahedronAccessorImpl(), minInteger, maxInteger);
 
 		Integer actual = (Integer) betweenTetrahedronCriterion.criterionMaxValue();
 		Integer expected = maxInteger;

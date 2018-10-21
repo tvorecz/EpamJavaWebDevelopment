@@ -10,7 +10,7 @@ import by.training.zorich.storage.event.impl.arg.RemovalTetrahedronEventArg;
 import by.training.zorich.storage.event.impl.manager.TetrahedronEventManager;
 import by.training.zorich.storage.register.impl.impl.TetrahedronRegisterImpl;
 import by.training.zorich.storage.repository.impl.TetrahedronRepository;
-import by.training.zorich.storage.specification.TetrahedronSpecification;
+import by.training.zorich.storage.specification.impl.TetrahedronSpecification;
 import by.training.zorich.storage.updater.TetrahedronUpdater;
 
 import java.util.*;
@@ -110,6 +110,25 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 			if (specification.isSatisfiedBy(tetrahedron)) {
 				tetrahedronList.add(cloneTetrahedron(tetrahedron));
 			}
+		}
+
+		return tetrahedronList;
+	}
+
+	public List<Tetrahedron> allTetrahedrons() {
+		List<Tetrahedron> tetrahedronList = new ArrayList<>();
+
+		for (Tetrahedron tetrahedron : tetrahedronsSource.values()) {
+			tetrahedronList.add(cloneTetrahedron(tetrahedron));
+		}
+
+		return tetrahedronList;
+	}
+
+	@Override
+	public Tetrahedron tetrahedron(int id) {
+		if(tetrahedronsSource.containsKey(id)) {
+			return cloneTetrahedron(tetrahedronsSource.get(id));
 		}
 
 		return null;

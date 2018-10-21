@@ -10,32 +10,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class TetrahedronIdComparatorTest {
-	private static Tetrahedron tetrahedronFirst;
-	private static Tetrahedron tetrahedronSecond;
-	private static final int tetrahedronId = 1;
-	private static final String tetrahedronName = "Tetrahedron # %s";
-
-	@BeforeTest
-	public void createTestTetrahedron() {
-		tetrahedronFirst = new Tetrahedron(new Point(2, -1, 2),
-				new Point(2, 1, 3),
-				new Point(1, 0, 1),
-				new Point(6, 4, 5));
-
-		tetrahedronFirst.setId(tetrahedronId);
-		tetrahedronFirst.setName(String.format(tetrahedronName, tetrahedronId));
-
-		tetrahedronSecond = new Tetrahedron(new Point(0, 4, 5),
-				new Point(3, -2, 1),
-				new Point(4, 5, 6),
-				new Point(3, 3, 2));
-
-		tetrahedronSecond.setId(tetrahedronId + 1);
-		tetrahedronSecond.setName(String.format(tetrahedronName, tetrahedronId + 1));
-	}
-
-	@Test
-	public void testCompare() {
+	@Test(dataProvider = "comparatorData", dataProviderClass = TetrahedronComparatorTestData.class)
+	public void testCompare(Tetrahedron tetrahedronFirst, Tetrahedron tetrahedronSecond) {
 		TetrahedronIdComparator tetrahedronIdComparator = new TetrahedronIdComparator();
 
 		int actual = tetrahedronIdComparator.compare(tetrahedronFirst, tetrahedronSecond);
